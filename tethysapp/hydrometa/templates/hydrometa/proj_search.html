@@ -1,0 +1,31 @@
+{% extends "hydrometa/base.html" %}
+{% load tethys_gizmos %}
+
+{% block header_buttons %}
+  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">
+    <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
+  </div>
+{% endblock %}
+
+{% block app_content %}
+
+<form action="/apps/hydrometa/proj_search/" method="get">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="search-keyword" class="control-label">keyword</label>
+        <input type="text" class="form-control" id="search-keyword" name="search-keyword">
+    </div>
+    <button type="submit" value="search-button">search</button>
+
+</form>
+<table id="search-results">
+    {% for row in search_results %}
+    <tr>
+        <td>{{ row.title }}</td>
+        <td>{{ row.description }}</td>
+        <td>{{ row.date }}</td>
+        <td>{{ row.keywords }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
